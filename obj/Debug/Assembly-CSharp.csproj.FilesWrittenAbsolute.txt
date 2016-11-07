@@ -1,0 +1,16 @@
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/UnityEngine.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/UnityEditor.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/MsgPack.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Mono.Cecil.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Unity.DataContract.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/zhuoyikang/source/iTank/Temp/bin/Debug/Mono.Cecil.Mdb.dll
