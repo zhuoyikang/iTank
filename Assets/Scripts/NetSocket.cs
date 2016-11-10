@@ -61,7 +61,7 @@ public class NetSocket
         }
 
         byte[] data = ms1.ToArray ();
-        var netByteBuf = new NetByteBuf (data.Length + 4);
+        var netByteBuf = new NetByteBuf (data.Length + 2);
         netByteBuf.WriteShort ((short)(data.Length + 1));
         byte cmd = (byte)EventName.GetEventCmd (eventName);
 
@@ -69,7 +69,6 @@ public class NetSocket
         netByteBuf.WriteBytes (data);
 
         byte[] sendData = netByteBuf.GetRaw ();
-        Debug.Log("Send:" + data.Length +"_"+ sendData.Length);
 
         clientSocket.BeginSend (sendData,
                                 0,

@@ -99,9 +99,10 @@
      <Compile Include="Assets\Scripts\NetSocket.cs" />
      <Compile Include="Assets\Scripts\Product.cs" />
      <Compile Include="Assets\Scripts\Tank.cs" />
+     <Compile Include="Assets\Scripts\TankEntity.cs" />
      <Compile Include="Assets\Scripts\TankJoystick.cs" />
      <Compile Include="Assets\Scripts\TankMoveStatus.cs" />
-     <Compile Include="Assets\Scripts\TankMovement.cs" />
+     <Compile Include="Assets\Scripts\TankRole.cs" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
