@@ -16,7 +16,6 @@ public static class EventName
     public static void Install() {
 
         map1 [1] = "e_test";
-
         map2 ["e_test"] = 1;
 
     }

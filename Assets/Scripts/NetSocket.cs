@@ -16,7 +16,7 @@ public enum SocketState {
 public class NetSocket
 {
     const int BUFF_SIZE =  65535;
-    const int HEAD_SIZE =  4;
+    const int HEAD_SIZE =  2;
 
     private Socket clientSocket;
     private readonly NetByteBuf buf = new NetByteBuf(BUFF_SIZE);
@@ -145,7 +145,8 @@ public class NetSocket
             }
 
             Debug.Assert(len == HEAD_SIZE);
-            int payload_length = buf.GetInt(0);
+            int payload_length = buf.GetShort(0);
+            Debug.Log ("payload_length" + payload_length);
 
             Debug.Assert(payload_length < BUFF_SIZE);
             int want = payload_length;
@@ -167,7 +168,6 @@ public class NetSocket
             int cmd = ms2.ReadByte ();
             string eventName = EventName.GetEventName (cmd);
             NetEvent.FireOut(eventName, new object[]{ ms2});
-
 
             /*
               var protoPacket = ProtoBuf.Serializer.Deserialize<packet>(ms2);

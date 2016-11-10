@@ -31,7 +31,8 @@ public class TankJoystick : MonoBehaviour {
         float joyPositionY = move.joystickAxis.y;
 
         if (joyPositionY != 0 || joyPositionX != 0) {
-            GetComponent<TankMovement>().SetMoveDirect(new Vector3(joyPositionX, 0, joyPositionY));
+            GetComponent<TankMovement>().
+                SetMoveDirect(new Vector3(joyPositionX, 0, joyPositionY));
         }
     }
 

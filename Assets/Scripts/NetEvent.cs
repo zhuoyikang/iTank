@@ -152,7 +152,7 @@ public static class NetEvent  {
             return;
         }
 
-        Debug.Log("fire 1:"+ eventname);
+        Debug.Log("fire 1:"+ eventname+ " lst:" + lst.Count);
 
         for (int i = 0; i< lst.Count; i++) {
             var eobj = new EventObj();
