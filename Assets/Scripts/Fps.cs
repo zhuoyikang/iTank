@@ -7,6 +7,7 @@ public class Fps : MonoBehaviour
     private double lastInterval;
     private int frames = 0;
     private float fps;
+
     void Start()
     {
         lastInterval = Time.realtimeSinceStartup;

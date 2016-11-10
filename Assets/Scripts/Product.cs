@@ -1,17 +1,14 @@
-﻿using System;
-
-
+﻿
 public class Product
 {
-    public string name;
-    public int age;
+    public string _name;
+    public int _age;
 
     public Product()
     {
-        name = "good";
-        age = 23;
+        _name = "good";
+        _age = 23;
     }
+
 }
-
-
 

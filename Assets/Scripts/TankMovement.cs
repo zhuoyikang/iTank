@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using MsgPack.Serialization;
 
 
 // 一个坦克的移动包含以下属性:
@@ -14,17 +12,17 @@ public class TankMovement : MonoBehaviour {
 
     // 设置移动状态
     public void SetMoveStatus(TankMoveStatus status) {
-        this.m_MoveStatus = status;
+        m_MoveStatus = status;
     }
 
     // 设置移动方向
     public void SetMoveDirect(Vector3 direct) {
-        this.m_MoveDirect = direct;
+        m_MoveDirect = direct;
     }
 
     // 固定移动
     public void FixedUpdate() {
-        if (this.m_MoveStatus == TankMoveStatus.Moving) {
+        if (m_MoveStatus == TankMoveStatus.Moving) {
             transform.LookAt(transform.position + m_MoveDirect);
             transform.Translate(Vector3.forward * Time.deltaTime *5);
         }

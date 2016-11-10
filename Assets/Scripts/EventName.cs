@@ -22,7 +22,7 @@ public static class EventName
     }
 
     public static string GetEventName(int cmd) {
-        return map1[cmd];
+        return map1 [cmd];
     }
 
     public static int GetEventCmd(string name) {

@@ -76,7 +76,6 @@ public class NetSocket
                                 sendData.Length,
                                 SocketFlags.None,
                                 null, clientSocket);
-
     }
 
 
