@@ -23,25 +23,22 @@ public class ModAgent : MonoBehaviour {
 
         var serializer = MessagePackSerializer.Get<Tank> ();
         Tank tank = serializer.Unpack(ms);
-        Debug.Log("get fire "+ tank);
-
         GameObject go;
-        Debug.Log("tank size:"+ _tankMap.Count);
 
         if(_tankMap.TryGetValue(tank.Id, out go)) {
 
             go.transform.position = tank.Position;
-            go.GetComponent<TankEntity>().SendMessage("SetTankId", tank.Id);
-            go.GetComponent<TankEntity>().SendMessage("SetTankRole", TankRole.Net);
             go.GetComponent<TankEntity>().SendMessage("SetMoveStatus", tank.MoveStatus);
             go.GetComponent<TankEntity>().SendMessage("SetMoveDirect", tank.MoveDirect);
 
-
         } else {
-            go = GameObject.Instantiate(_tankPrefeb,
-                                        tank.Position,
+            go = GameObject.Instantiate(_tankPrefeb, tank.Position,
                                         Quaternion.identity) as GameObject;
             go.transform.SetParent(_tankHolder.transform);
+            go.GetComponent<TankEntity>().SendMessage("SetTankRole", TankRole.Net);
+            go.GetComponent<TankEntity>().SendMessage("SetTankId", tank.Id);
+            go.GetComponent<TankEntity>().SendMessage("SetMoveStatus", tank.MoveStatus);
+            go.GetComponent<TankEntity>().SendMessage("SetMoveDirect", tank.MoveDirect);
             _tankMap.Add(tank.Id, go);
         }
 

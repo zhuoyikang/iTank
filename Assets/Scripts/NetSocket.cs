@@ -56,7 +56,7 @@ public class NetSocket
         var ms1 = new MemoryStream ();
         serializer.Pack (ms1, message);
 
-        if (status == SocketState.Closed) {
+        if (status != SocketState.Connected) {
             return;
         }
 
@@ -103,6 +103,8 @@ public class NetSocket
             return;
         }
 
+        Debug.Log("connected_cb ");
+
         status = SocketState.Connected;
 
         var threadSocket = new Thread(new ThreadStart(waitSocket));
@@ -145,7 +147,7 @@ public class NetSocket
 
             Debug.Assert(len == HEAD_SIZE);
             int payload_length = buf.GetShort(0);
-            Debug.Log ("payload_length" + payload_length);
+            //Debug.Log ("payload_length" + payload_length);
 
             Debug.Assert(payload_length < BUFF_SIZE);
             int want = payload_length;
@@ -159,8 +161,10 @@ public class NetSocket
                 lenAll += len;
             }
 
+            /*
             Debug.Log("receive length:" + lenAll+ " payload_length："
                       + payload_length);
+            */
 
             Debug.Assert(payload_length == lenAll);
             var ms2 = new MemoryStream (buf.GetRaw (), 0, payload_length);

@@ -14,13 +14,15 @@ public class TankEntity : MonoBehaviour {
 
     public void Start() {
         _id = Random.Range(0, 10000);
-        Invoke("SyncTank", 2);
     }
 
     public void SyncTank() {
+
         if(m_Role != TankRole.Main) {
             return;
         }
+
+        Debug.Log("sync net:" + _id);
 
         var t = new Tank();
         t.Id = _id;
@@ -33,12 +35,22 @@ public class TankEntity : MonoBehaviour {
     // 设置移动状态
     public void SetMoveStatus(TankMoveStatus status) {
         m_MoveStatus = status;
+
+        if(m_Role == TankRole.Net) {
+            return;
+        }
+
         SyncTank();
     }
 
     // 设置移动方向
     public void SetMoveDirect(Vector3 direct) {
         m_MoveDirect = direct;
+
+        if(m_Role == TankRole.Net) {
+            return;
+        }
+
         SyncTank();
     }
 

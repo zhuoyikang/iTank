@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
         NetSocket.Instance.Connect ("127.0.0.1", 4001);
         EventName.Install ();
         GetComponent<ModAgent>().RegisterEvent();
+        Application.runInBackground = true;
 
     }
 

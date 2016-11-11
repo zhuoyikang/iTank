@@ -152,7 +152,7 @@ public static class NetEvent  {
             return;
         }
 
-        Debug.Log("fire 1:"+ eventname+ " lst:" + lst.Count);
+   //     Debug.Log("fire 1:"+ eventname+ " lst:" + lst.Count);
 
         for (int i = 0; i< lst.Count; i++) {
             var eobj = new EventObj();
@@ -178,7 +178,7 @@ public static class NetEvent  {
 
         while(handles._doing.Count>0){
             EventObj eobj = handles._doing.First.Value;
-            Debug.Log("process msg : "+ eobj._info._funcname);
+            //Debug.Log("process msg : "+ eobj._info._funcname);
             try {
                 eobj._info._method.Invoke(eobj._info._obj, eobj._args);
             }

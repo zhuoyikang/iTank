@@ -4,6 +4,9 @@
 // 进行摇杆操做
 public class TankJoystick : MonoBehaviour {
 
+    private float oldJoyPositionY;
+    private float oldJoyPositionX;
+
     void OnEnable() {
         EasyJoystick.On_JoystickMove += OnJoystickMove;
         EasyJoystick.On_JoystickMoveEnd += OnJoystickMoveEnd;
@@ -30,7 +33,11 @@ public class TankJoystick : MonoBehaviour {
         float joyPositionX = move.joystickAxis.x;
         float joyPositionY = move.joystickAxis.y;
 
-        if (joyPositionY != 0 || joyPositionX != 0) {
+        if (joyPositionY != oldJoyPositionY || joyPositionX != oldJoyPositionX) {
+
+            oldJoyPositionY = joyPositionY;
+            oldJoyPositionX = joyPositionX;
+
             GetComponent<TankEntity>().
                 SetMoveDirect(new Vector3(joyPositionX, 0, joyPositionY));
         }
