@@ -18,6 +18,10 @@ public static class EventName
         map1 [1] = "SyncTank";
         map2 ["SyncTank"] = 1;
 
+
+        map1 [2] = "SyncShot";
+        map2 ["SyncShot"] = 2;
+
     }
 
     public static string GetEventName(int cmd) {

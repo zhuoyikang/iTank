@@ -7,6 +7,10 @@
 //
 public class TankEntity : MonoBehaviour {
 
+    private Transform firePos;
+    public GameObject shellPrefeb;
+    public float shellSpeed = 15;
+
     public int _id;
     private Vector3 m_MoveDirect;
     private TankMoveStatus m_MoveStatus = TankMoveStatus.Stopped;
@@ -14,6 +18,7 @@ public class TankEntity : MonoBehaviour {
 
     public void Start() {
         _id = Random.Range(0, 10000);
+        firePos = transform.Find("FirePos");
     }
 
     public void SyncTank() {
@@ -30,6 +35,16 @@ public class TankEntity : MonoBehaviour {
         t.MoveStatus = (int)m_MoveStatus;
         t.MoveDirect = m_MoveDirect;
         NetSocket.Instance.Send<Tank> ("SyncTank", t);
+    }
+
+    public void SyncShot() {
+        if(m_Role != TankRole.Main) {
+            return;
+        }
+
+        var s = new Shot();
+        s.Id = _id;
+        NetSocket.Instance.Send<Shot> ("SyncShot", s);
     }
 
     // 设置移动状态
@@ -53,6 +68,15 @@ public class TankEntity : MonoBehaviour {
 
         SyncTank();
     }
+
+    // 发射字段
+    public void Shot(int i) {
+        var go = GameObject.Instantiate (shellPrefeb, firePos.position,
+                                         firePos.rotation) as GameObject;
+        go.GetComponent<Rigidbody>().velocity = go.transform.forward * shellSpeed;
+        SyncShot();
+    }
+
 
     public void SetTankId(int id) {
         _id = id;

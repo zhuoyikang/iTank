@@ -89,7 +89,7 @@
      <Compile Include="Assets\EasyTouch\Plugins\_C#-Event-Template\C_EasyButtonTemplate.cs" />
      <Compile Include="Assets\EasyTouch\Plugins\_C#-Event-Template\C_EasyJoystickTemplate.cs" />
      <Compile Include="Assets\EasyTouch\Plugins\_C#-Event-Template\C_EasyTouchTemplate.cs" />
-     <Compile Include="Assets\Product.cs" />
+     <Compile Include="Assets\Scripts\AutoDestory.cs" />
      <Compile Include="Assets\Scripts\EventName.cs" />
      <Compile Include="Assets\Scripts\Fps.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -98,6 +98,8 @@
      <Compile Include="Assets\Scripts\NetEvent.cs" />
      <Compile Include="Assets\Scripts\NetSocket.cs" />
      <Compile Include="Assets\Scripts\Product.cs" />
+     <Compile Include="Assets\Scripts\Shell.cs" />
+     <Compile Include="Assets\Scripts\Shot.cs" />
      <Compile Include="Assets\Scripts\Tank.cs" />
      <Compile Include="Assets\Scripts\TankEntity.cs" />
      <Compile Include="Assets\Scripts\TankJoystick.cs" />

@@ -15,6 +15,7 @@ public class ModAgent : MonoBehaviour {
 
     public void RegisterEvent() {
         NetEvent.RegisterOut("SyncTank", this, "SyncTank");
+        NetEvent.RegisterOut("SyncShot", this, "SyncShot");
     }
 
 
@@ -42,6 +43,22 @@ public class ModAgent : MonoBehaviour {
             _tankMap.Add(tank.Id, go);
         }
 
+    }
+
+    // 同步tank数据，如果没有则新建，有则同步.
+    public void SyncShot(MemoryStream ms) {
+
+        Debug.Log("SyncShot  ...");
+
+        var serializer = MessagePackSerializer.Get<Shot> ();
+        Shot shot = serializer.Unpack(ms);
+        GameObject go;
+
+        if(!_tankMap.TryGetValue(shot.Id, out go)) {
+            return;
+        }
+
+        go.GetComponent<TankEntity>().SendMessage("Shot", 1);
     }
 
     void Start () {
