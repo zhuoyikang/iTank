@@ -20,6 +20,12 @@ public class Shell : MonoBehaviour {
         GameObject.Instantiate (shellExplosionPrefeb, transform.position,
                                 transform.rotation);
         GameObject.Destroy(this.gameObject);
+
+
+        if(collider.tag == "Tank") {
+            collider.SendMessage("SetDamage", 1);
+        }
+
     }
 
 }

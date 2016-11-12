@@ -9,7 +9,9 @@ public class TankEntity : MonoBehaviour {
 
     private Transform firePos;
     public GameObject shellPrefeb;
+    public GameObject tankExplosionPrefeb;
     public float shellSpeed = 15;
+    public int _hp=100;
 
     public int _id;
     private Vector3 m_MoveDirect;
@@ -41,11 +43,32 @@ public class TankEntity : MonoBehaviour {
         if(m_Role != TankRole.Main) {
             return;
         }
-
         var s = new Shot();
         s.Id = _id;
         NetSocket.Instance.Send<Shot> ("SyncShot", s);
     }
+
+    public void SyncDamage() {
+        if(m_Role != TankRole.Main) {
+            return;
+        }
+        var s = new Damage();
+        s.Id = _id;
+        s.Hp = _hp;
+        NetSocket.Instance.Send<Damage> ("SyncDamage", s);
+    }
+
+
+    public void SyncDie() {
+        if(m_Role != TankRole.Main) {
+            return;
+        }
+
+        var s = new Die();
+        s.Id = _id;
+        NetSocket.Instance.Send<Die> ("SyncDie", s);
+    }
+
 
     // 设置移动状态
     public void SetMoveStatus(TankMoveStatus status) {
@@ -84,6 +107,38 @@ public class TankEntity : MonoBehaviour {
 
     public void SetTankRole(TankRole role) {
         m_Role = role;
+    }
+
+    // 设置死亡
+    public void SetDie(int i) {
+
+        if(m_Role == TankRole.Net) {
+            GameObject.Instantiate (tankExplosionPrefeb, transform.position + Vector3.up,
+                                    transform.rotation);
+            GameObject.Destroy(this.gameObject);
+        }else{
+            GameObject.Instantiate (tankExplosionPrefeb, transform.position + Vector3.up,
+                                    transform.rotation);
+            SyncDie();
+            GameObject.Destroy(this.gameObject);
+        }
+
+    }
+
+
+    public void SetDamage(int i) {
+        Debug.Log("damage: "+_id);
+        _hp -= 50;
+
+        if(m_Role == TankRole.Net) {
+            return;
+        } else {
+            if (_hp <=0 ){
+                SetDie(1);
+            } else {
+                SyncDamage();
+            }
+        }
     }
 
     // 固定移动

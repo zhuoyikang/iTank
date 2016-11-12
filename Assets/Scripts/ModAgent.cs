@@ -16,6 +16,8 @@ public class ModAgent : MonoBehaviour {
     public void RegisterEvent() {
         NetEvent.RegisterOut("SyncTank", this, "SyncTank");
         NetEvent.RegisterOut("SyncShot", this, "SyncShot");
+        NetEvent.RegisterOut("SyncDamage", this, "SyncDamage");
+        NetEvent.RegisterOut("SyncDie", this, "SyncDie");
     }
 
 
@@ -59,6 +61,36 @@ public class ModAgent : MonoBehaviour {
         }
 
         go.GetComponent<TankEntity>().SendMessage("Shot", 1);
+    }
+
+    public void SyncDamage(MemoryStream ms) {
+        Debug.Log("SyncDamage  ...");
+
+        var serializer = MessagePackSerializer.Get<Damage> ();
+        Damage damage = serializer.Unpack(ms);
+        GameObject go;
+
+        if(!_tankMap.TryGetValue(damage.Id, out go)) {
+            return;
+        }
+
+        go.GetComponent<TankEntity>().SendMessage("SetDamage", 1);
+
+    }
+
+    public void SyncDie(MemoryStream ms) {
+        Debug.Log("SyncDie  ...");
+
+        var serializer = MessagePackSerializer.Get<Die> ();
+        Die die = serializer.Unpack(ms);
+        GameObject go;
+
+        if(!_tankMap.TryGetValue(die.Id, out go)) {
+            return;
+        }
+
+        go.GetComponent<TankEntity>().SendMessage("SetDie", 1);
+
     }
 
     void Start () {
