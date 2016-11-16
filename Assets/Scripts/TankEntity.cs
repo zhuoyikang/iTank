@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 
 // 一个坦克的移动包含以下属性:
@@ -7,11 +8,17 @@
 //
 public class TankEntity : MonoBehaviour {
 
+
+    private int _hpTotal = 100;
     private Transform firePos;
     public GameObject shellPrefeb;
     public GameObject tankExplosionPrefeb;
+    public AudioClip tankExplosionAudio;
+    public AudioClip shotAudio;
+    public Slider hpSlider;
     public float shellSpeed = 15;
     public int _hp=100;
+
 
     public int _id;
     private Vector3 m_MoveDirect;
@@ -21,6 +28,7 @@ public class TankEntity : MonoBehaviour {
     public void Start() {
         _id = Random.Range(0, 10000);
         firePos = transform.Find("FirePos");
+        //hpSlider = GetComponent<Slider>();
     }
 
     public void SyncTank() {
@@ -37,6 +45,7 @@ public class TankEntity : MonoBehaviour {
         t.MoveStatus = (int)m_MoveStatus;
         t.MoveDirect = m_MoveDirect;
         NetSocket.Instance.Send<Tank> ("SyncTank", t);
+
     }
 
     public void SyncShot() {
@@ -97,6 +106,7 @@ public class TankEntity : MonoBehaviour {
         var go = GameObject.Instantiate (shellPrefeb, firePos.position,
                                          firePos.rotation) as GameObject;
         go.GetComponent<Rigidbody>().velocity = go.transform.forward * shellSpeed;
+        AudioSource.PlayClipAtPoint(shotAudio, transform.position);
         SyncShot();
     }
 
@@ -111,14 +121,13 @@ public class TankEntity : MonoBehaviour {
 
     // 设置死亡
     public void SetDie(int i) {
+        GameObject.Instantiate (tankExplosionPrefeb, transform.position + Vector3.up,
+                                transform.rotation);
 
+        AudioSource.PlayClipAtPoint(tankExplosionAudio, transform.position);
         if(m_Role == TankRole.Net) {
-            GameObject.Instantiate (tankExplosionPrefeb, transform.position + Vector3.up,
-                                    transform.rotation);
             GameObject.Destroy(this.gameObject);
         }else{
-            GameObject.Instantiate (tankExplosionPrefeb, transform.position + Vector3.up,
-                                    transform.rotation);
             SyncDie();
             GameObject.Destroy(this.gameObject);
         }
@@ -128,7 +137,8 @@ public class TankEntity : MonoBehaviour {
 
     public void SetDamage(int i) {
         Debug.Log("damage: "+_id);
-        _hp -= 50;
+        _hp -= 10;
+        hpSlider.value = (float)_hp / (_hpTotal);
 
         if(m_Role == TankRole.Net) {
             return;

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
 
         Debug.Log ("GameManager Start");
-        NetSocket.Instance.Connect ("127.0.0.1", 4001);
+        NetSocket.Instance.Connect ("192.168.199.123", 4001);
         EventName.Install ();
         GetComponent<ModAgent>().RegisterEvent();
         Application.runInBackground = true;
