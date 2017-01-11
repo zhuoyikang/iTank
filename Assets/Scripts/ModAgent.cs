@@ -49,8 +49,8 @@ public class ModAgent : MonoBehaviour {
 
     // 同步tank数据，如果没有则新建，有则同步.
     public void SyncShot(MemoryStream ms) {
-
-        Debug.Log("SyncShot  ...");
+        // byte[] data =  ms.ToArray();
+        // NetSocket.ShowBytes("SyncShot ox", data, data.Length);
 
         var serializer = MessagePackSerializer.Get<Shot> ();
         Shot shot = serializer.Unpack(ms);

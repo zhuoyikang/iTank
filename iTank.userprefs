@@ -1,17 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TankEntity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NetEvent.cs">
     <Files>
-      <File FileName="Assets/Scripts/Shell.cs" Line="19" Column="5" />
-      <File FileName="Assets/Scripts/TankEntity.cs" Line="19" Column="34" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="9" />
+      <File FileName="Assets/Scripts/NetEvent.cs" Line="127" Column="10" />
+      <File FileName="Assets/Scripts/Shell.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/TankEntity.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/TankJoystick.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/NetSocket.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/EventName.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/TankMoveStatus.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Tank.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ModAgent.cs" Line="82" Column="1" />
-      <File FileName="Assets/Scripts/NetEvent.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ModAgent.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/TankRole.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

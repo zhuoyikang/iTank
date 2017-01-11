@@ -19,6 +19,7 @@ public class NetSocket
     const int HEAD_SIZE =  2;
 
     private Socket clientSocket;
+    private int sendId;
     private readonly NetByteBuf buf = new NetByteBuf(BUFF_SIZE);
     private SocketState status = SocketState.Closed;
 
@@ -61,20 +62,32 @@ public class NetSocket
         }
 
         byte[] data = ms1.ToArray ();
-        var netByteBuf = new NetByteBuf (data.Length + 2);
+        var netByteBuf = new NetByteBuf(data.Length + 2);
         netByteBuf.WriteShort ((short)(data.Length + 1));
         byte cmd = (byte)EventName.GetEventCmd (eventName);
+
+        Debug.Log("begin send:" + eventName + " cmd " + cmd);
 
         netByteBuf.WriteByte (cmd);
         netByteBuf.WriteBytes (data);
 
         byte[] sendData = netByteBuf.GetRaw ();
+        sendId+=1;
 
+        Debug.Log("begin send:" + sendId);
         clientSocket.BeginSend (sendData,
                                 0,
                                 sendData.Length,
                                 SocketFlags.None,
-                                null, clientSocket);
+                                new AsyncCallback(send_cb), sendId);
+
+        // clientSocket.Send(sendData, sendData.Length, SocketFlags.None);
+
+    }
+
+    public void send_cb(IAsyncResult re) {
+        int sendId = (int)re.AsyncState;
+        Debug.Log("end send:" + sendId);
     }
 
 
@@ -129,6 +142,7 @@ public class NetSocket
         Debug.Log("receiver");
         int len;
 
+
         while(true)
         {
             if (!clientSocket.Poll(-1, SelectMode.SelectRead)){
@@ -150,8 +164,11 @@ public class NetSocket
             //Debug.Log ("payload_length" + payload_length);
 
             Debug.Assert(payload_length < BUFF_SIZE);
+
             int want = payload_length;
-            int lenAll= 0 ;
+            int lenAll = 0 ;
+            buf.Clear();
+
             SocketError socketError;
 
             while (want>0) {
@@ -161,15 +178,18 @@ public class NetSocket
                 lenAll += len;
             }
 
-            /*
-            Debug.Log("receive length:" + lenAll+ " payload_length："
-                      + payload_length);
-            */
+
+            // Debug.Log("receive length:" + lenAll+ " payload_length："
+            //           + payload_length);
+
 
             Debug.Assert(payload_length == lenAll);
-            var ms2 = new MemoryStream (buf.GetRaw (), 0, payload_length);
+            var ms_byte = new byte[payload_length];
+            Array.Copy(buf.GetRaw(), 0, ms_byte, 0,  payload_length);
+            var ms2 = new MemoryStream(ms_byte, 0, payload_length);
             int cmd = ms2.ReadByte ();
             string eventName = EventName.GetEventName (cmd);
+            // ShowBytes("bytes:"+eventName+":", buf.GetRaw(), payload_length);
             NetEvent.FireOut(eventName, new object[]{ ms2});
 
             /*
@@ -179,8 +199,19 @@ public class NetSocket
               Event.FireOut(eventname, new object[]{protoPacket.payload});
             */
 
+
         }
     }
+
+    public static void ShowBytes(string header, byte[] data, int length) {
+        string result = "";
+        for(int i=0;i<length;i++){
+            result+= data[i].ToString("X2");
+        }
+
+        Debug.Log(header+":"+result);
+    }
+
 
 
     // 关闭Socket

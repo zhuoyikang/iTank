@@ -62,4 +62,12 @@ public class TankJoystick : MonoBehaviour {
         GetComponent<TankEntity> ().Shot(1);
     }
 
+
+    void Update (){
+        if(Input.GetKeyDown(KeyCode.Space)){
+            GetComponent<TankEntity> ().Shot(1);
+        }
+    }
+
+
 }

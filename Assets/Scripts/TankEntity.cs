@@ -107,6 +107,7 @@ public class TankEntity : MonoBehaviour {
                                          firePos.rotation) as GameObject;
         go.GetComponent<Rigidbody>().velocity = go.transform.forward * shellSpeed;
         AudioSource.PlayClipAtPoint(shotAudio, transform.position);
+        SyncTank();
         SyncShot();
     }
 
